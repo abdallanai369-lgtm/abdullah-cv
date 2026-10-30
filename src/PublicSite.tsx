@@ -91,6 +91,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <div className="project-icon"><FolderGit2 size={23} /></div>
       <h3 dir="auto">{project.title}</h3>
       <p className="project-description">{project.description}</p>
+      {project.developer && <div className="project-developer"><UserRound size={14} /><span dir="auto">{project.developer}</span></div>}
 
       {project.technologies.length > 0 && (
         <div className="project-tech" dir="ltr">

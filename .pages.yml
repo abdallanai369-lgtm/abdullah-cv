@@ -84,6 +84,9 @@ content:
           - name: status
             label: حالة المشروع
             type: string
+          - name: developer
+            label: المطور أو الفريق
+            type: string
           - name: description
             label: وصف المشروع
             type: text

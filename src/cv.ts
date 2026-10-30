@@ -29,6 +29,7 @@ export interface Project {
   title: string;
   description: string;
   status: string;
+  developer?: string;
   technologies: string[];
   features: string[];
   link: string;
