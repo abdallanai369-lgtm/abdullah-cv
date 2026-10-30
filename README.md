@@ -86,10 +86,16 @@ VITE_SUPABASE_ANON_KEY=YOUR_PUBLIC_ANON_KEY
 أنشئ مستودعًا فارغًا باسم `abdullah-cv` ثم نفّذ داخل مجلد المشروع:
 
 ```bash
+git init -b main
+git config user.name "Abdullah"
+git config user.email "abdallahai369@gmail.com"
+git add .
+git commit -m "Publish Abdullah CV portfolio"
 git remote add origin https://github.com/abdallanai369-lgtm/abdullah-cv.git
-git branch -M main
 git push -u origin main
 ```
+
+هذه الأوامر تعمل أيضًا بعد فك ضغط نسخة المصدر التي لا تتضمن مجلد `.git`. إذا كان المشروع عندك داخل Git بالفعل وله Commit، يكفي تنفيذ أمرَي `remote add` و`push`.
 
 إذا اخترت اسم مستودع مختلفًا، عدّل الرابط في الأمر. لا يلزم تغيير إعداد `base` لأن المشروع يستخدم مسارات نسبية.
 
