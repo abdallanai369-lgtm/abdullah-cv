@@ -47,8 +47,8 @@ const navItems = [
   { href: '#contact', label: 'تواصل' },
 ];
 
-function safeExternalUrl(value: string): string {
-  if (!value.trim()) return '';
+function safeExternalUrl(value?: string): string {
+  if (!value?.trim()) return '';
   try {
     const url = new URL(value);
     return ['http:', 'https:'].includes(url.protocol) ? url.toString() : '';

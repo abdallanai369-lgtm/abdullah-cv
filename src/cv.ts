@@ -14,7 +14,7 @@ export interface Profile {
   owner: string;
   employeeCount: string;
   summary: string[];
-  photoUrl: string;
+  photoUrl?: string;
 }
 
 export interface SkillCategory {
@@ -32,8 +32,8 @@ export interface Project {
   developer?: string;
   technologies: string[];
   features: string[];
-  link: string;
-  github: string;
+  link?: string;
+  github?: string;
 }
 
 export interface CVData {
