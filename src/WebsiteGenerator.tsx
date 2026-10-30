@@ -139,9 +139,9 @@ const templates: Record<Category, Template> = {
 };
 
 const keywords: Record<Category, string[]> = {
-  business: ['شركة', 'مؤسسة', 'خدمات', 'أعمال', 'business', 'company', 'agency'],
+  business: ['شركة', 'مؤسسة', 'أعمال', 'business', 'company', 'agency'],
   restaurant: ['مطعم', 'مطاعم', 'كافيه', 'مقهى', 'منيو', 'طعام', 'restaurant', 'cafe', 'food'],
-  medical: ['عيادة', 'عياده', 'طبي', 'طبية', 'دكتور', 'طبيب', 'مستشفى', 'أسنان', 'clinic', 'medical', 'doctor'],
+  medical: ['عيادة', 'عياده', 'طبي', 'طبية', 'دكتور', 'طبيب', 'مستشفى', 'أسنان', 'مواعيد', 'مرضى', 'صحة', 'علاج', 'clinic', 'medical', 'doctor'],
   store: ['متجر', 'محل', 'منتجات', 'بيع', 'تسوق', 'تجارة', 'store', 'shop', 'ecommerce', 'products'],
   portfolio: ['شخصي', 'سيرة', 'أعمالي', 'مطور', 'مصمم', 'portfolio', 'cv', 'developer', 'designer'],
   education: ['تعليم', 'تعليمي', 'كورس', 'كورسات', 'دورة', 'دورات', 'مدرسة', 'تدريب', 'course', 'education', 'school'],
