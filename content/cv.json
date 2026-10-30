@@ -1,29 +1,217 @@
 {
   "profile": {
-    "name": "TITAN Digital",
     "firstName": "TITAN Digital",
+    "name": "TITAN Digital",
     "headline": "نصنع حلولًا رقمية تبدأ من فكرتك.",
+    "specialty": "شركة تطوير برمجيات وحلول رقمية وذكاء اصطناعي",
+    "owner": "Abdullah Mohammed Sayed",
+    "employeeCount": "20",
     "roles": [
       "Web Development",
       "AI Solutions",
       "Business Automation",
       "Digital Products"
     ],
-    "location": "مصر",
-    "email": "abdallahai369@gmail.com",
-    "phone": "01055365106",
-    "whatsapp": "201055365106",
-    "github": "https://github.com/abdallanai369-lgtm",
-    "specialty": "شركة تطوير برمجيات وحلول رقمية وذكاء اصطناعي",
     "summary": [
       "TITAN Digital هي شركة تطوير برمجيات وحلول رقمية تضم أكثر من 100 موظف، وتعمل تحت إدارة مالكها المهندس Abdullah Mohammed Sayed.",
       "نقدم خدمات تصميم وتطوير المواقع والتطبيقات وأنظمة إدارة الأعمال وحلول الذكاء الاصطناعي والأتمتة، ونحوّل أفكار العملاء إلى منتجات رقمية عملية وسهلة الاستخدام.",
       "بقيادة المهندس Abdullah Mohammed Sayed، نجمع بين الخبرة التقنية والتصميم الاحترافي لبناء حلول قابلة للتطوير تساعد عملاءنا على النمو وتقليل التكاليف."
     ],
-    "photoUrl": "",
-    "owner": "Abdullah Mohammed Sayed",
-    "employeeCount": "100+"
+    "location": "مصر",
+    "email": "abdallahai369@gmail.com",
+    "phone": "01055365106",
+    "whatsapp": "201055365106",
+    "github": "https://github.com/abdallanai369-lgtm"
   },
+  "projects": [
+    {
+      "id": "alhuda-alnoor-clinics",
+      "title": "عيادات الهدى والنور",
+      "status": "موقع عيادات طبية",
+      "developer": "Abdallah Mamd",
+      "description": "تصميم وتطوير موقع إلكتروني للعيادات الطبية، يهدف إلى تسهيل وصول المرضى إلى الخدمات والتخصصات الطبية وتنظيم طلبات الحجز.",
+      "technologies": [
+        "UI/UX",
+        "Web Development",
+        "Arabic RTL",
+        "Booking UI"
+      ],
+      "features": [
+        "عرض التخصصات الطبية والأطباء",
+        "اختيار التخصص والطبيب",
+        "واجهة حجز المواعيد",
+        "عرض مواعيد العيادات",
+        "واجهة الملف الطبي للمريض",
+        "متابعة المواعيد والتقارير",
+        "عرض بيانات العنوان والتواصل",
+        "تصميم عربي متجاوب مع الهواتف"
+      ],
+      "link": "https://alhudaandalnoorclinics.tiiny.site"
+    },
+    {
+      "id": "al-hayah-care",
+      "title": "مركز الحياة كير الطبي",
+      "status": "موقع مركز طبي",
+      "developer": "Abdallah Mamd",
+      "description": "تصميم وتطوير موقع إلكتروني لمركز طبي، يوفر واجهة رقمية للتعريف بالمركز وخدماته ويساعد المرضى على طلب حجز الكشف.",
+      "technologies": [
+        "UI/UX",
+        "Web Development",
+        "Arabic RTL",
+        "Booking UI"
+      ],
+      "features": [
+        "واجهة تعريفية بالمركز",
+        "عرض الخدمات والتخصصات الطبية",
+        "نموذج حجز إلكتروني",
+        "اختيار التاريخ والفترة المناسبة للكشف",
+        "جمع بيانات التواصل الأساسية",
+        "تصميم سهل الاستخدام",
+        "واجهة عربية متوافقة مع الهواتف"
+      ],
+      "link": "https://alhayahcare-demo.tiiny.site"
+    },
+    {
+      "id": "alfatem-specialty-clinics",
+      "title": "عيادات الفاطم التخصصية",
+      "status": "موقع عيادات تخصصية",
+      "developer": "Abdallah Mamd",
+      "description": "تصميم وتطوير موقع إلكتروني للعيادات التخصصية، بهدف تقديم الخدمات الطبية بصورة منظمة وتسهيل تجربة المرضى في التعرف على الأطباء والتخصصات وطلب المواعيد.",
+      "technologies": [
+        "UI/UX",
+        "Web Development",
+        "Arabic RTL",
+        "Booking UI"
+      ],
+      "features": [
+        "عرض التخصصات الطبية",
+        "التعريف بالأطباء والخدمات",
+        "واجهة اختيار الطبيب",
+        "واجهة حجز المواعيد",
+        "جداول مواعيد الأطباء",
+        "واجهة ملفات المرضى",
+        "معلومات التواصل والعنوان",
+        "تصميم عربي متجاوب مع الهواتف"
+      ],
+      "link": "https://alfatemspecialtyclinics.tiiny.site"
+    },
+    {
+      "id": "zeno-ai-studio",
+      "title": "Zeno AI Studio",
+      "status": "نموذج أولي قيد التطوير",
+      "description": "منصة لتطوير البرمجيات وإدارة المشاريع، مبنية باستخدام Python وFlask وتضم محرر أكواد ومساعد ذكاء اصطناعي.",
+      "technologies": [
+        "Python",
+        "Flask",
+        "SQLite"
+      ],
+      "features": [
+        "تسجيل الحسابات وتسجيل الدخول",
+        "إنشاء وإدارة المشاريع",
+        "محرر أكواد داخل المنصة",
+        "حفظ ملفات المشاريع",
+        "معاينة صفحات HTML",
+        "إعدادات مساعد الذكاء الاصطناعي",
+        "قاعدة بيانات SQLite",
+        "واجهة متجاوبة مع الهواتف"
+      ],
+      "github": "https://github.com/abdallanai369-lgtm/zeno-ai-studio"
+    },
+    {
+      "id": "zeno-x-studio",
+      "title": "Zeno X Studio",
+      "status": "Prototype تجريبي",
+      "description": "منصة محلية لتوليد نماذج المشاريع البرمجية من الأوصاف النصية، مع إمكانية المعاينة والتصدير.",
+      "technologies": [
+        "Python",
+        "Local Server",
+        "Project Generator"
+      ],
+      "features": [
+        "إنشاء نماذج مواقع إلكترونية",
+        "معاينة المشاريع",
+        "تصدير المشاريع في ملفات ZIP",
+        "خادم Python محلي",
+        "تطوير مبدئي لدعم أنواع مشاريع متعددة"
+      ]
+    },
+    {
+      "id": "amwaj-restaurant",
+      "title": "Amwaj Restaurant",
+      "status": "مشروع واجهة رقمية",
+      "description": "واجهة رقمية حديثة لمطعم، تركز على تجربة المستخدم وتنظيم المحتوى والاستعداد للنشر.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Tailwind CSS"
+      ],
+      "features": [
+        "تصميم واجهة المطعم",
+        "تطوير تجربة المستخدم",
+        "تنظيم صفحات المشروع",
+        "تجهيز المشروع للبناء والنشر"
+      ],
+      "link": "https://ai.studio/apps/494b0977-f8b4-41d7-814d-08de4ee462d2"
+    },
+    {
+      "id": "motor-workshop",
+      "title": "Motor Workshop Management System",
+      "status": "نظام تجريبي",
+      "description": "نظام تجريبي متكامل لإدارة ورش صيانة ولف المواتير، من أوامر الشغل حتى الحسابات والمخزون.",
+      "technologies": [
+        "Python",
+        "Flask",
+        "SQLite",
+        "Android Development"
+      ],
+      "features": [
+        "إدارة أوامر الشغل",
+        "متابعة مراحل الصيانة",
+        "إدارة المخزون",
+        "حسابات العملاء",
+        "الفواتير والمدفوعات",
+        "متابعة المستحقات",
+        "لوحة تحكم إدارية",
+        "قاعدة بيانات محلية"
+      ]
+    },
+    {
+      "id": "ai-sales-automation",
+      "title": "AI Sales & Business Automation",
+      "status": "تطوير وتجارب ونماذج أولية",
+      "description": "أفكار وأنظمة مساعدة للشركات تستخدم الذكاء الاصطناعي والأتمتة لتحسين التسويق والمبيعات وتنظيم العمليات.",
+      "technologies": [
+        "AI",
+        "Automation",
+        "Data Analysis"
+      ],
+      "features": [
+        "البحث عن العملاء المحتملين",
+        "تحليل المواقع الإلكترونية",
+        "اكتشاف المشكلات التجارية",
+        "إعداد عروض الخدمات",
+        "تنظيم بيانات العملاء",
+        "أتمتة عمليات التسويق والمبيعات"
+      ]
+    },
+    {
+      "id": "anime-ai",
+      "title": "ANIME AI",
+      "status": "مشروع قيد التطوير",
+      "description": "أداة ذكاء اصطناعي لإنشاء أفكار ومحتوى YouTube Shorts، من الفكرة والسيناريو حتى العنوان والهاشتاجات.",
+      "technologies": [
+        "Python",
+        "Google Gemini"
+      ],
+      "features": [
+        "توليد أفكار الفيديوهات",
+        "كتابة السيناريوهات",
+        "إنشاء العناوين والأوصاف",
+        "اقتراح الهاشتاجات"
+      ]
+    }
+  ],
   "skills": [
     {
       "id": "web",
@@ -95,210 +283,7 @@
     "Android SDK",
     "Node.js",
     "Express.js",
-    "Google Gemini",
     "CodeMirror"
-  ],
-  "projects": [
-    {
-      "id": "alhuda-alnoor-clinics",
-      "title": "عيادات الهدى والنور",
-      "description": "تصميم وتطوير موقع إلكتروني للعيادات الطبية، يهدف إلى تسهيل وصول المرضى إلى الخدمات والتخصصات الطبية وتنظيم طلبات الحجز.",
-      "status": "موقع عيادات طبية",
-      "developer": "Abdallah Mamd",
-      "technologies": [
-        "UI/UX",
-        "Web Development",
-        "Arabic RTL",
-        "Booking UI"
-      ],
-      "features": [
-        "عرض التخصصات الطبية والأطباء",
-        "اختيار التخصص والطبيب",
-        "واجهة حجز المواعيد",
-        "عرض مواعيد العيادات",
-        "واجهة الملف الطبي للمريض",
-        "متابعة المواعيد والتقارير",
-        "عرض بيانات العنوان والتواصل",
-        "تصميم عربي متجاوب مع الهواتف"
-      ],
-      "link": "https://alhudaandalnoorclinics.tiiny.site",
-      "github": ""
-    },
-    {
-      "id": "al-hayah-care",
-      "title": "مركز الحياة كير الطبي",
-      "description": "تصميم وتطوير موقع إلكتروني لمركز طبي، يوفر واجهة رقمية للتعريف بالمركز وخدماته ويساعد المرضى على طلب حجز الكشف.",
-      "status": "موقع مركز طبي",
-      "technologies": [
-        "UI/UX",
-        "Web Development",
-        "Arabic RTL",
-        "Booking UI"
-      ],
-      "features": [
-        "واجهة تعريفية بالمركز",
-        "عرض الخدمات والتخصصات الطبية",
-        "نموذج حجز إلكتروني",
-        "اختيار التاريخ والفترة المناسبة للكشف",
-        "جمع بيانات التواصل الأساسية",
-        "تصميم سهل الاستخدام",
-        "واجهة عربية متوافقة مع الهواتف"
-      ],
-      "link": "https://alhayahcare-demo.tiiny.site",
-      "github": "",
-      "developer": "Abdallah Mamd"
-    },
-    {
-      "id": "alfatem-specialty-clinics",
-      "title": "عيادات الفاطم التخصصية",
-      "description": "تصميم وتطوير موقع إلكتروني للعيادات التخصصية، بهدف تقديم الخدمات الطبية بصورة منظمة وتسهيل تجربة المرضى في التعرف على الأطباء والتخصصات وطلب المواعيد.",
-      "status": "موقع عيادات تخصصية",
-      "developer": "Abdallah Mamd",
-      "technologies": [
-        "UI/UX",
-        "Web Development",
-        "Arabic RTL",
-        "Booking UI"
-      ],
-      "features": [
-        "عرض التخصصات الطبية",
-        "التعريف بالأطباء والخدمات",
-        "واجهة اختيار الطبيب",
-        "واجهة حجز المواعيد",
-        "جداول مواعيد الأطباء",
-        "واجهة ملفات المرضى",
-        "معلومات التواصل والعنوان",
-        "تصميم عربي متجاوب مع الهواتف"
-      ],
-      "link": "https://alfatemspecialtyclinics.tiiny.site",
-      "github": ""
-    },
-    {
-      "id": "zeno-ai-studio",
-      "title": "Zeno AI Studio",
-      "description": "منصة لتطوير البرمجيات وإدارة المشاريع، مبنية باستخدام Python وFlask وتضم محرر أكواد ومساعد ذكاء اصطناعي.",
-      "status": "نموذج أولي قيد التطوير",
-      "technologies": [
-        "Python",
-        "Flask",
-        "SQLite"
-      ],
-      "features": [
-        "تسجيل الحسابات وتسجيل الدخول",
-        "إنشاء وإدارة المشاريع",
-        "محرر أكواد داخل المنصة",
-        "حفظ ملفات المشاريع",
-        "معاينة صفحات HTML",
-        "إعدادات مساعد الذكاء الاصطناعي",
-        "قاعدة بيانات SQLite",
-        "واجهة متجاوبة مع الهواتف"
-      ],
-      "link": "",
-      "github": "https://github.com/abdallanai369-lgtm/zeno-ai-studio"
-    },
-    {
-      "id": "zeno-x-studio",
-      "title": "Zeno X Studio",
-      "description": "منصة محلية لتوليد نماذج المشاريع البرمجية من الأوصاف النصية، مع إمكانية المعاينة والتصدير.",
-      "status": "Prototype تجريبي",
-      "technologies": [
-        "Python",
-        "Local Server",
-        "Project Generator"
-      ],
-      "features": [
-        "إنشاء نماذج مواقع إلكترونية",
-        "معاينة المشاريع",
-        "تصدير المشاريع في ملفات ZIP",
-        "خادم Python محلي",
-        "تطوير مبدئي لدعم أنواع مشاريع متعددة"
-      ],
-      "link": "",
-      "github": ""
-    },
-    {
-      "id": "amwaj-restaurant",
-      "title": "Amwaj Restaurant",
-      "description": "واجهة رقمية حديثة لمطعم، تركز على تجربة المستخدم وتنظيم المحتوى والاستعداد للنشر.",
-      "status": "مشروع واجهة رقمية",
-      "technologies": [
-        "React",
-        "TypeScript",
-        "Vite",
-        "Tailwind CSS"
-      ],
-      "features": [
-        "تصميم واجهة المطعم",
-        "تطوير تجربة المستخدم",
-        "تنظيم صفحات المشروع",
-        "تجهيز المشروع للبناء والنشر"
-      ],
-      "link": "https://ai.studio/apps/494b0977-f8b4-41d7-814d-08de4ee462d2",
-      "github": ""
-    },
-    {
-      "id": "motor-workshop",
-      "title": "Motor Workshop Management System",
-      "description": "نظام تجريبي متكامل لإدارة ورش صيانة ولف المواتير، من أوامر الشغل حتى الحسابات والمخزون.",
-      "status": "نظام تجريبي",
-      "technologies": [
-        "Python",
-        "Flask",
-        "SQLite",
-        "Android Development"
-      ],
-      "features": [
-        "إدارة أوامر الشغل",
-        "متابعة مراحل الصيانة",
-        "إدارة المخزون",
-        "حسابات العملاء",
-        "الفواتير والمدفوعات",
-        "متابعة المستحقات",
-        "لوحة تحكم إدارية",
-        "قاعدة بيانات محلية"
-      ],
-      "link": "",
-      "github": ""
-    },
-    {
-      "id": "ai-sales-automation",
-      "title": "AI Sales & Business Automation",
-      "description": "أفكار وأنظمة مساعدة للشركات تستخدم الذكاء الاصطناعي والأتمتة لتحسين التسويق والمبيعات وتنظيم العمليات.",
-      "status": "تطوير وتجارب ونماذج أولية",
-      "technologies": [
-        "AI",
-        "Automation",
-        "Data Analysis"
-      ],
-      "features": [
-        "البحث عن العملاء المحتملين",
-        "تحليل المواقع الإلكترونية",
-        "اكتشاف المشكلات التجارية",
-        "إعداد عروض الخدمات",
-        "تنظيم بيانات العملاء",
-        "أتمتة عمليات التسويق والمبيعات"
-      ],
-      "link": "",
-      "github": ""
-    },
-    {
-      "id": "anime-ai",
-      "title": "ANIME AI",
-      "description": "أداة ذكاء اصطناعي لإنشاء أفكار ومحتوى YouTube Shorts، من الفكرة والسيناريو حتى العنوان والهاشتاجات.",
-      "status": "مشروع قيد التطوير",
-      "technologies": [
-        "Python",
-        "Google Gemini"
-      ],
-      "features": [
-        "توليد أفكار الفيديوهات",
-        "كتابة السيناريوهات",
-        "إنشاء العناوين والأوصاف",
-        "اقتراح الهاشتاجات"
-      ],
-      "link": "",
-      "github": ""
-    }
   ],
   "workEnvironment": [
     "فريق متكامل يضم أكثر من 100 موظف في مختلف التخصصات التقنية",
