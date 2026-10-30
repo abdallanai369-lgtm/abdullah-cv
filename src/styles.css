@@ -333,6 +333,10 @@ p, h1, h2, h3 { margin-top: 0; }
 .admin-login-button { width: 100%; margin-top: 4px; }
 .login-security { display: flex; align-items: flex-start; gap: 8px; margin-top: 23px; padding-top: 20px; color: #607989; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.7; }
 .login-security svg { flex: 0 0 auto; color: #498d82; }
+.cms-card { width: min(100%, 560px); }
+.cms-card .setup-guide { margin-bottom: 27px; }
+.cms-publish-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 19px; padding: 12px 14px; color: #8fb9ae; background: rgba(94,234,212,.045); border: 1px solid rgba(94,234,212,.12); border-radius: 9px; font-size: 11px; line-height: 1.75; }
+.cms-publish-note svg { flex: 0 0 auto; margin-top: 2px; color: var(--accent); }
 
 /* Responsive */
 @media (max-width: 1050px) {

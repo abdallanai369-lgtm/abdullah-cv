@@ -29,7 +29,6 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { freshDefaultCV } from './cv';
 import type { CVData, Project, SkillCategory } from './cv';
-import { loadPublicCV } from './content';
 
 const skillIcons: Record<SkillCategory['icon'], LucideIcon> = {
   web: Globe2,
@@ -135,18 +134,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function PublicSite() {
-  const [cv, setCv] = useState<CVData>(() => freshDefaultCV());
+  const [cv] = useState<CVData>(() => freshDefaultCV());
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [showTop, setShowTop] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    loadPublicCV().then((content) => {
-      if (active) setCv(content);
-    });
-    return () => { active = false; };
-  }, []);
 
   useEffect(() => {
     document.title = `${cv.profile.name} | ${cv.profile.roles[0] || 'مطور برمجيات'}`;
@@ -394,7 +385,7 @@ export function PublicSite() {
               {cv.skills.map((skill, index) => {
                 const Icon = skillIcons[skill.icon] ?? Layers3;
                 return (
-                  <article className="skill-card reveal" key={skill.id}>
+                  <article className="skill-card reveal" key={skill.id ?? `skill-${index}`}>
                     <div className="skill-card-top">
                       <span className="skill-icon"><Icon size={25} /></span>
                       <span className="skill-number" dir="ltr">0{index + 1}</span>
@@ -419,7 +410,7 @@ export function PublicSite() {
               description="مجموعة من المشاريع والنماذج الأولية في الويب والأنظمة والذكاء الاصطناعي والأتمتة."
             />
             <div className="projects-grid">
-              {cv.projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+              {cv.projects.map((project, index) => <ProjectCard key={project.id ?? `project-${index}`} project={project} index={index} />)}
             </div>
             {githubUrl && (
               <div className="projects-footer reveal">

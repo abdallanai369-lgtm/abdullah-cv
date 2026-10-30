@@ -1,0 +1,148 @@
+media:
+  input: public/media
+  output: https://abdallanai369-lgtm.github.io/abdullah-cv/media
+  rename: safe
+  extensions: [png, jpg, jpeg, webp, gif, svg]
+
+content:
+  - name: cv
+    label: محتوى السيرة الذاتية
+    type: file
+    path: content/cv.json
+    format: json
+    fields:
+      - name: profile
+        label: البيانات الأساسية والتواصل
+        type: object
+        fields:
+          - name: firstName
+            type: string
+            hidden: true
+          - name: name
+            label: الاسم
+            type: string
+            required: true
+          - name: headline
+            label: العنوان الرئيسي
+            type: string
+            required: true
+          - name: specialty
+            label: التخصص المختصر
+            type: string
+          - name: roles
+            label: المسميات الوظيفية
+            type: string
+            list: true
+          - name: summary
+            label: فقرات النبذة الشخصية
+            type: text
+            list: true
+          - name: location
+            label: الموقع
+            type: string
+          - name: email
+            label: البريد الإلكتروني
+            type: string
+            required: true
+          - name: phone
+            label: رقم الهاتف
+            type: string
+          - name: whatsapp
+            label: رقم واتساب بالكود الدولي
+            type: string
+            description: أرقام فقط، مثال 201055365106
+          - name: github
+            label: رابط GitHub
+            type: string
+          - name: photoUrl
+            label: الصورة الشخصية
+            type: image
+            description: اتركها فارغة لإظهار التصميم البرمجي بدل الصورة.
+
+      - name: projects
+        label: المشاريع والأعمال
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: id
+            type: string
+            hidden: true
+          - name: title
+            label: اسم المشروع
+            type: string
+            required: true
+          - name: status
+            label: حالة المشروع
+            type: string
+          - name: description
+            label: وصف المشروع
+            type: text
+          - name: technologies
+            label: التقنيات المستخدمة
+            type: string
+            list: true
+          - name: features
+            label: وظائف وتفاصيل المشروع
+            type: string
+            list: true
+          - name: link
+            label: رابط عرض المشروع
+            type: string
+          - name: github
+            label: رابط GitHub للمشروع
+            type: string
+
+      - name: skills
+        label: المهارات والتخصصات
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: id
+            type: string
+            hidden: true
+          - name: title
+            label: اسم التخصص
+            type: string
+            required: true
+          - name: icon
+            label: الأيقونة
+            type: select
+            options:
+              values:
+                - name: web
+                  label: مواقع إلكترونية
+                - name: apps
+                  label: تطبيقات وأنظمة
+                - name: ai
+                  label: ذكاء اصطناعي
+                - name: automation
+                  label: أتمتة
+          - name: items
+            label: عناصر التخصص
+            type: string
+            list: true
+
+      - name: technologies
+        label: التقنيات والأدوات
+        type: string
+        list: true
+
+      - name: workEnvironment
+        label: عناصر بيئة العمل
+        type: string
+        list: true
+
+      - name: goal
+        label: الهدف المهني
+        type: text
+
+      - name: targetFields
+        label: مجالات العمل المستهدفة
+        type: string
+        list: true
