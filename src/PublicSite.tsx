@@ -30,6 +30,7 @@ import type { LucideIcon } from 'lucide-react';
 import { freshDefaultCV } from './cv';
 import type { CVData, Project, SkillCategory } from './cv';
 import { WebsiteGenerator } from './WebsiteGenerator';
+import { SmartStudio } from './SmartStudio';
 
 const skillIcons: Record<SkillCategory['icon'], LucideIcon> = {
   web: Globe2,
@@ -337,6 +338,7 @@ export function PublicSite() {
         </div>
 
         <WebsiteGenerator whatsappNumber={whatsappNumber} />
+        <SmartStudio whatsappNumber={whatsappNumber} />
 
         <section className="section about-section" id="about">
           <div className="container">

@@ -12,6 +12,7 @@ import {
   Sparkles,
   WandSparkles,
 } from 'lucide-react';
+import { saveBlob } from './androidBridge';
 
 type Category = 'business' | 'restaurant' | 'medical' | 'store' | 'portfolio' | 'education' | 'realestate';
 
@@ -235,7 +236,7 @@ function buildHtml(description: string, template: Template, name: string): strin
 </html>`;
 }
 
-function generateSite(description: string): GeneratedSite {
+export function generateSite(description: string): GeneratedSite {
   const category = detectCategory(description);
   const template = templates[category];
   const title = extractName(description, template);
@@ -260,30 +261,9 @@ export function WebsiteGenerator({ whatsappNumber }: { whatsappNumber: string })
     window.setTimeout(() => document.getElementById('generator-result')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
   }
 
-  function downloadHtml() {
+  async function downloadHtml() {
     if (!result) return;
-    const downloadName = `${fileName(result.title)}.html`;
-    const androidDownloader = (window as Window & {
-      Android?: { downloadFile: (name: string, base64Content: string) => void };
-    }).Android;
-
-    if (androidDownloader) {
-      const bytes = new TextEncoder().encode(result.html);
-      let binary = '';
-      bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
-      androidDownloader.downloadFile(downloadName, btoa(binary));
-      return;
-    }
-
-    const blob = new Blob([result.html], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = downloadName;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    await saveBlob(`${fileName(result.title)}.html`, new Blob([result.html], { type: 'text/html;charset=utf-8' }));
   }
 
   async function copyHtml() {
