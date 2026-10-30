@@ -262,11 +262,24 @@ export function WebsiteGenerator({ whatsappNumber }: { whatsappNumber: string })
 
   function downloadHtml() {
     if (!result) return;
+    const downloadName = `${fileName(result.title)}.html`;
+    const androidDownloader = (window as Window & {
+      Android?: { downloadFile: (name: string, base64Content: string) => void };
+    }).Android;
+
+    if (androidDownloader) {
+      const bytes = new TextEncoder().encode(result.html);
+      let binary = '';
+      bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+      androidDownloader.downloadFile(downloadName, btoa(binary));
+      return;
+    }
+
     const blob = new Blob([result.html], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = `${fileName(result.title)}.html`;
+    anchor.download = downloadName;
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
