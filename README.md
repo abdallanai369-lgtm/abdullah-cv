@@ -1,6 +1,6 @@
-# موقع عبدالله — CV & Portfolio
+# TITAN Digital — Company Website
 
-موقع شخصي عربي داكن ومتجاوب، مبني باستخدام React وTypeScript وVite، ومنشور على GitHub Pages.
+موقع شركة عربي داكن ومتجاوب، مبني باستخدام React وTypeScript وVite، ومنشور على GitHub Pages. يتضمن مولد مواقع فوري بقوالب ذكية يعمل محليًا بدون API، مع معاينة وتنزيل HTML.
 
 - الموقع: https://abdallanai369-lgtm.github.io/abdullah-cv/
 - المستودع: https://github.com/abdallanai369-lgtm/abdullah-cv
@@ -12,7 +12,7 @@
 
 1. افتح https://app.pagescms.org/ وسجّل الدخول بحساب GitHub.
 2. في أول مرة، وافق على تثبيت Pages CMS وامنحه الوصول إلى مستودع `abdullah-cv`.
-3. افتح المستودع ثم اختر **محتوى السيرة الذاتية**.
+3. افتح المستودع ثم اختر **محتوى موقع الشركة**.
 4. عدّل البيانات أو المشاريع أو المهارات، ثم اضغط **Save**.
 5. ينشئ Pages CMS عملية Commit في GitHub، وينشر GitHub Actions التعديل تلقائيًا، عادةً خلال دقيقة أو دقيقتين.
 

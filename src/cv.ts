@@ -11,6 +11,8 @@ export interface Profile {
   whatsapp: string;
   github: string;
   specialty: string;
+  owner: string;
+  employeeCount: string;
   summary: string[];
   photoUrl: string;
 }

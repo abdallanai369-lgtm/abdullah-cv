@@ -6,7 +6,7 @@ media:
 
 content:
   - name: cv
-    label: محتوى السيرة الذاتية
+    label: محتوى موقع الشركة
     type: file
     path: content/cv.json
     format: json
@@ -29,6 +29,13 @@ content:
           - name: specialty
             label: التخصص المختصر
             type: string
+          - name: owner
+            label: اسم مالك الشركة
+            type: string
+          - name: employeeCount
+            label: عدد الموظفين المعروض
+            type: string
+            description: مثال 100+
           - name: roles
             label: المسميات الوظيفية
             type: string

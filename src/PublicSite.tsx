@@ -6,7 +6,6 @@ import {
   BrainCircuit,
   Check,
   Code2,
-  Database,
   ExternalLink,
   FolderGit2,
   Github,
@@ -22,6 +21,7 @@ import {
   Smartphone,
   Sparkles,
   Terminal,
+  UserRound,
   Workflow,
   X,
   Zap,
@@ -29,6 +29,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { freshDefaultCV } from './cv';
 import type { CVData, Project, SkillCategory } from './cv';
+import { WebsiteGenerator } from './WebsiteGenerator';
 
 const skillIcons: Record<SkillCategory['icon'], LucideIcon> = {
   web: Globe2,
@@ -38,7 +39,8 @@ const skillIcons: Record<SkillCategory['icon'], LucideIcon> = {
 };
 
 const navItems = [
-  { href: '#about', label: 'نبذة' },
+  { href: '#generator', label: 'أنشئ موقعك' },
+  { href: '#about', label: 'من نحن' },
   { href: '#skills', label: 'التخصصات' },
   { href: '#projects', label: 'المشاريع' },
   { href: '#technologies', label: 'التقنيات' },
@@ -179,8 +181,8 @@ export function PublicSite() {
   const stats = useMemo(() => [
     { value: cv.projects.length, label: 'مشاريع ونماذج أولية' },
     { value: cv.skills.length, label: 'مجالات تخصص' },
-    { value: cv.technologies.length, label: 'تقنية وأداة' },
-  ], [cv.projects.length, cv.skills.length, cv.technologies.length]);
+    { value: cv.profile.employeeCount, label: 'موظف وخبير' },
+  ], [cv.projects.length, cv.skills.length, cv.profile.employeeCount]);
 
   const githubUrl = safeExternalUrl(cv.profile.github);
   const githubHandle = githubUrl ? new URL(githubUrl).pathname.split('/').filter(Boolean)[0] : '';
@@ -193,9 +195,10 @@ export function PublicSite() {
 
   const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
+    '@type': 'Organization',
     name: cv.profile.name,
-    jobTitle: cv.profile.roles,
+    founder: { '@type': 'Person', name: cv.profile.owner, jobTitle: 'Founder & CEO' },
+    numberOfEmployees: { '@type': 'QuantitativeValue', minValue: Number.parseInt(cv.profile.employeeCount, 10) || 0 },
     email: `mailto:${cv.profile.email}`,
     telephone: cv.profile.phone,
     address: { '@type': 'PostalAddress', addressCountry: 'EG', addressLocality: cv.profile.location },
@@ -214,7 +217,7 @@ export function PublicSite() {
             <span className="brand-mark"><Code2 size={23} /></span>
             <span className="brand-copy">
               <strong>{cv.profile.name}</strong>
-              <small dir="ltr">SOFTWARE DEVELOPER</small>
+              <small dir="ltr">DIGITAL SOLUTIONS</small>
             </span>
           </a>
 
@@ -226,7 +229,7 @@ export function PublicSite() {
           </nav>
 
           <div className="header-actions">
-            <button className="icon-button print-trigger" type="button" onClick={() => window.print()} aria-label="طباعة السيرة الذاتية" title="طباعة CV">
+            <button className="icon-button print-trigger" type="button" onClick={() => window.print()} aria-label="طباعة ملف تعريف الشركة" title="طباعة ملف الشركة">
               <Printer size={19} />
             </button>
             <a className="header-cta" href={`mailto:${cv.profile.email}`}>لنتحدث <ArrowUpLeft size={17} /></a>
@@ -250,7 +253,7 @@ export function PublicSite() {
           <div className="container hero-grid">
             <div className="hero-copy reveal">
               <div className="availability"><span /> {cv.profile.specialty}</div>
-              <p className="hero-intro">مرحبًا، أنا {cv.profile.name}</p>
+              <p className="hero-intro">مرحبًا بك في {cv.profile.name}</p>
               <h1>
                 {regularWords && <span>{regularWords} </span>}
                 <span className="text-gradient">{highlightedWords}</span>
@@ -260,7 +263,7 @@ export function PublicSite() {
                 {cv.profile.roles.filter(Boolean).map((role) => <span key={role} dir="auto">{role}</span>)}
               </div>
               <div className="hero-actions">
-                <a className="button button-primary" href="#projects">استعرض مشاريعي <ArrowLeft size={19} /></a>
+                <a className="button button-primary" href="#generator">أنشئ موقعك الآن <ArrowLeft size={19} /></a>
                 {whatsappUrl && (
                   <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">
                     <MessageCircle size={19} /> تواصل عبر واتساب
@@ -282,12 +285,12 @@ export function PublicSite() {
               <div className="code-window">
                 <div className="window-bar" dir="ltr">
                   <div className="window-dots"><span /><span /><span /></div>
-                  <span className="window-title">developer.ts</span>
+                  <span className="window-title">company.ts</span>
                   <Code2 size={17} />
                 </div>
                 {photoUrl && <img className="developer-photo" src={photoUrl} alt={`صورة ${cv.profile.name}`} />}
                 <div className="code-content" dir="ltr">
-                  <div><span className="code-muted">01</span> <span className="code-purple">const</span> <span className="code-blue">developer</span> = {'{'}</div>
+                  <div><span className="code-muted">01</span> <span className="code-purple">const</span> <span className="code-blue">company</span> = {'{'}</div>
                   <div><span className="code-muted">02</span> &nbsp;&nbsp;name: <span className="code-green">'{cv.profile.name}'</span>,</div>
                   <div><span className="code-muted">03</span> &nbsp;&nbsp;basedIn: <span className="code-green">'{cv.profile.location}'</span>,</div>
                   <div><span className="code-muted">04</span> &nbsp;&nbsp;focus: [</div>
@@ -295,11 +298,11 @@ export function PublicSite() {
                   <div><span className="code-muted">06</span> &nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">'AI & Automation'</span>,</div>
                   <div><span className="code-muted">07</span> &nbsp;&nbsp;&nbsp;&nbsp;<span className="code-green">'Business Systems'</span></div>
                   <div><span className="code-muted">08</span> &nbsp;&nbsp;],</div>
-                  <div><span className="code-muted">09</span> &nbsp;&nbsp;openSourceFriendly: <span className="code-orange">true</span></div>
+                  <div><span className="code-muted">09</span> &nbsp;&nbsp;team: <span className="code-green">'{cv.profile.employeeCount}'</span></div>
                   <div><span className="code-muted">10</span> {'}'};</div>
                 </div>
                 <div className="code-footer">
-                  <span><span className="live-dot" /> جاهز لتحويل الفكرة إلى منتج</span>
+                  <span><span className="live-dot" /> جاهزون لتحويل الفكرة إلى منتج</span>
                   <Terminal size={18} />
                 </div>
               </div>
@@ -317,7 +320,7 @@ export function PublicSite() {
                 <span>{stat.label}</span>
               </div>
             ))}
-            <a className="scroll-cue" href="#about" aria-label="انتقل إلى النبذة">
+            <a className="scroll-cue" href="#generator" aria-label="انتقل إلى مولد المواقع">
               <span>اكتشف المزيد</span>
               <ArrowLeft size={18} />
             </a>
@@ -332,13 +335,15 @@ export function PublicSite() {
           </div>
         </div>
 
+        <WebsiteGenerator whatsappNumber={whatsappNumber} />
+
         <section className="section about-section" id="about">
           <div className="container">
             <SectionHeading
-              number="01"
-              eyebrow="نبذة عني"
-              title="أبني البرمجيات حول المشكلة، لا حول التعقيد."
-              description="من الفكرة الأولى إلى نموذج عملي، أركز على ما يصنع قيمة حقيقية للمستخدم وصاحب العمل."
+              number="02"
+              eyebrow="من نحن"
+              title="نبني البرمجيات حول المشكلة، لا حول التعقيد."
+              description="من الفكرة الأولى إلى منتج عملي، نركز على ما يصنع قيمة حقيقية للمستخدم وصاحب العمل."
             />
             <div className="about-grid">
               <div className="about-copy reveal">
@@ -348,15 +353,23 @@ export function PublicSite() {
                   <span><Check size={16} /> تصميم احترافي</span>
                   <span><Check size={16} /> تقليل التكاليف</span>
                 </div>
+                <div className="leader-card">
+                  <span className="leader-icon"><UserRound size={22} /></span>
+                  <div>
+                    <small>مالك الشركة والرئيس التنفيذي</small>
+                    <strong dir="auto">المهندس {cv.profile.owner}</strong>
+                    <span>قيادة فريق {cv.profile.name}</span>
+                  </div>
+                </div>
                 <button className="text-button" type="button" onClick={() => window.print()}>
-                  <Printer size={18} /> طباعة أو حفظ السيرة الذاتية PDF
+                  <Printer size={18} /> طباعة أو حفظ ملف الشركة PDF
                 </button>
               </div>
 
               <aside className="environment-card reveal">
                 <div className="card-heading">
                   <span className="card-icon"><Terminal size={21} /></span>
-                  <div><small>WORK ENVIRONMENT</small><h3>بيئة العمل</h3></div>
+                  <div><small>OUR WORK CULTURE</small><h3>فريق العمل وخبراتنا</h3></div>
                 </div>
                 <ul>
                   {cv.workEnvironment.filter(Boolean).map((item) => (
@@ -364,9 +377,9 @@ export function PublicSite() {
                   ))}
                 </ul>
                 <div className="environment-footer" dir="ltr">
-                  <span><Smartphone size={16} /> Android</span>
-                  <span><Terminal size={16} /> Termux</span>
-                  <span><Database size={16} /> Linux</span>
+                  <span><Globe2 size={16} /> Web Development</span>
+                  <span><BrainCircuit size={16} /> AI Solutions</span>
+                  <span><Workflow size={16} /> Automation</span>
                 </div>
               </aside>
             </div>
@@ -376,10 +389,10 @@ export function PublicSite() {
         <section className="section skills-section" id="skills">
           <div className="container">
             <SectionHeading
-              number="02"
+              number="03"
               eyebrow="المهارات والتخصصات"
               title="خبرات متعددة، وهدف واحد: حل يعمل."
-              description="أجمع بين تطوير الويب والأنظمة والذكاء الاصطناعي والأتمتة لبناء حلول تناسب طبيعة كل مشروع."
+              description="نجمع بين تطوير الويب والأنظمة والذكاء الاصطناعي والأتمتة لبناء حلول تناسب طبيعة كل مشروع."
             />
             <div className="skills-grid">
               {cv.skills.map((skill, index) => {
@@ -404,7 +417,7 @@ export function PublicSite() {
         <section className="section projects-section" id="projects">
           <div className="container">
             <SectionHeading
-              number="03"
+              number="04"
               eyebrow="المشاريع والأعمال"
               title="نماذج تتحول فيها الأفكار إلى تجربة حقيقية."
               description="مجموعة من المشاريع والنماذج الأولية في الويب والأنظمة والذكاء الاصطناعي والأتمتة."
@@ -426,9 +439,9 @@ export function PublicSite() {
         <section className="section technologies-section" id="technologies">
           <div className="container">
             <SectionHeading
-              number="04"
+              number="05"
               eyebrow="التقنيات والأدوات"
-              title="الأدوات التي أستخدمها لبناء الحلول."
+              title="الأدوات التي نستخدمها لبناء الحلول."
             />
             <div className="technology-cloud reveal" dir="ltr">
               {cv.technologies.filter(Boolean).map((tech, index) => (
@@ -441,7 +454,7 @@ export function PublicSite() {
             <div className="goal-card reveal">
               <div className="goal-icon"><Sparkles size={30} /></div>
               <div className="goal-content">
-                <span className="mini-label">الهدف المهني</span>
+                <span className="mini-label">هدفنا</span>
                 <h2>منتجات رقمية عملية، وقابلة للنمو.</h2>
                 <p>{cv.goal}</p>
                 <div className="target-fields" dir="ltr">
@@ -455,9 +468,9 @@ export function PublicSite() {
         <section className="section contact-section" id="contact">
           <div className="contact-glow" />
           <div className="container contact-inner reveal">
-            <span className="contact-kicker"><MessageCircle size={18} /> تواصل معي</span>
+            <span className="contact-kicker"><MessageCircle size={18} /> تواصل معنا</span>
             <h2>عندك فكرة مشروع؟<br /><span className="text-gradient">خلّينا نحوّلها إلى حل.</span></h2>
-            <p>إذا كنت تبحث عن موقع، نظام إدارة، أداة ذكاء اصطناعي أو أتمتة لعملياتك، يسعدني أن نتحدث عن فكرتك.</p>
+            <p>إذا كنت تبحث عن موقع، نظام إدارة، أداة ذكاء اصطناعي أو أتمتة لعملياتك، يسعدنا في TITAN Digital أن نتحدث عن فكرتك.</p>
             <div className="contact-actions">
               <a className="button button-primary" href={`mailto:${cv.profile.email}`}><Mail size={19} /> أرسل بريدًا إلكترونيًا</a>
               {whatsappUrl && <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={19} /> محادثة واتساب</a>}

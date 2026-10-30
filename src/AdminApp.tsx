@@ -3,7 +3,7 @@ import { ArrowRight, Check, ExternalLink, Github, ShieldCheck } from 'lucide-rea
 const steps = [
   'سجّل الدخول بحساب GitHub نفسه.',
   'اختر مستودع abdullah-cv، ووافق على تثبيت Pages CMS في أول مرة.',
-  'افتح «محتوى السيرة الذاتية»، عدّل الحقول ثم اضغط Save.',
+  'افتح «محتوى موقع الشركة»، عدّل الحقول ثم اضغط Save.',
 ];
 
 export function AdminApp() {
