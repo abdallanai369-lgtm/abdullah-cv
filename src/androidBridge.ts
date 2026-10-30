@@ -11,6 +11,9 @@ export interface TitanAndroidBridge {
   setSecret?: (key: string, value: string) => void;
   getSecret?: (key: string) => string;
   isOwnerAuthenticated?: () => boolean;
+  executeCommand?: (command: string) => void;
+  openAccessibilitySettings?: () => void;
+  isAccessibilityEnabled?: () => boolean;
 }
 
 interface RawAndroidBridge {
@@ -26,6 +29,9 @@ interface RawAndroidBridge {
   setSecret?: (key: string, value: string, sessionToken: string) => void;
   getSecret?: (key: string, sessionToken: string) => string;
   isOwnerAuthenticated?: () => boolean;
+  executeCommand?: (command: string, sessionToken: string) => void;
+  openAccessibilitySettings?: (sessionToken: string) => void;
+  isAccessibilityEnabled?: () => boolean;
 }
 
 function rawBridge(): RawAndroidBridge | undefined {
@@ -55,6 +61,9 @@ export function androidBridge(): TitanAndroidBridge | undefined {
   if (native.setSecret) bridge.setSecret = (key, value) => native.setSecret?.(key, value, sessionToken());
   if (native.getSecret) bridge.getSecret = (key) => native.getSecret?.(key, sessionToken()) || '';
   if (native.isOwnerAuthenticated) bridge.isOwnerAuthenticated = () => native.isOwnerAuthenticated?.() || false;
+  if (native.executeCommand) bridge.executeCommand = (command) => native.executeCommand?.(command, sessionToken());
+  if (native.openAccessibilitySettings) bridge.openAccessibilitySettings = () => native.openAccessibilitySettings?.(sessionToken());
+  if (native.isAccessibilityEnabled) bridge.isAccessibilityEnabled = () => native.isAccessibilityEnabled?.() || false;
   return bridge;
 }
 

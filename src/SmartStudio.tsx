@@ -45,6 +45,11 @@ interface SmartStudioProps {
   whatsappNumber: string;
 }
 
+function isSystemCommand(value: string): boolean {
+  return /(?:ابحث|https?:\/\/|اقرأ(?: لي)? الشاشة|مرر|انزل|اطلع|اضغط على|انقر على|دوس على|اكتب |التطبيقات الأخيرة|مركز الإشعارات|افتح الإشعارات|ارجع|رجوع|الشاشة الرئيسية|ذكرني|فكرني|لما أقول|عندما أقول|تعلم|علمك)/i.test(value)
+    || /^(?:افتح|شغل)\s+(?:كروم|المتصفح|يوتيوب|واتساب|جيميل|الخرائط|فيسبوك|انستجرام)/i.test(value);
+}
+
 function cleanEndpoint(value: string): string {
   return value.trim().replace(/\/+$/, '');
 }
@@ -85,6 +90,7 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
   const [publishToken, setPublishToken] = useState(() => android?.isOwnerAuthenticated?.() ? android.getSecret?.('publish_token') || '' : '');
   const [listening, setListening] = useState(false);
   const [cameraEnabled, setCameraEnabled] = useState(false);
+  const [accessibilityEnabled, setAccessibilityEnabled] = useState(() => android?.isAccessibilityEnabled?.() || false);
   const [deleteArmed, setDeleteArmed] = useState(false);
 
   async function request<T>(path: string, body: object, token = ''): Promise<T> {
@@ -175,6 +181,11 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
     setMessageInput('');
     const nextMessages: ChatMessage[] = [...messages, { role: 'user', content: value }];
     setMessages(nextMessages);
+
+    if (role === 'owner' && android?.executeCommand && isSystemCommand(value)) {
+      android.executeCommand(value);
+      return;
+    }
 
     if (/أنشئ|انشئ|اعمل|صمم|أنشيء/.test(value) && /موقع|متجر|صفحة|منصة/.test(value)) {
       await generateWebsite(value);
@@ -321,6 +332,15 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
         setCameraEnabled(Boolean(detail?.enabled));
         if (detail?.error) setError(detail.error);
       };
+      const commandHandler = (event: Event) => {
+        const detail = (event as CustomEvent<{ ok: boolean; message: string }>).detail;
+        if (!detail?.message) return;
+        setMessages((current) => [...current, { role: 'assistant', content: detail.message }]);
+      };
+      const accessibilityHandler = (event: Event) => {
+        const detail = (event as CustomEvent<{ enabled: boolean }>).detail;
+        setAccessibilityEnabled(Boolean(detail?.enabled));
+      };
       const gestureHandler = (event: Event) => {
         const gesture = (event as CustomEvent<{ gesture: string }>).detail?.gesture;
         if (gesture === 'open_palm') scrollToStudio();
@@ -337,12 +357,16 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
       window.addEventListener('titan-voice-result', voiceHandler);
       window.addEventListener('titan-voice-state', voiceStateHandler);
       window.addEventListener('titan-camera-state', cameraHandler);
+      window.addEventListener('titan-command-result', commandHandler);
+      window.addEventListener('titan-accessibility-state', accessibilityHandler);
       window.addEventListener('titan-gesture', gestureHandler);
       return () => {
         window.removeEventListener('titan-owner-auth', ownerHandler);
         window.removeEventListener('titan-voice-result', voiceHandler);
         window.removeEventListener('titan-voice-state', voiceStateHandler);
         window.removeEventListener('titan-camera-state', cameraHandler);
+        window.removeEventListener('titan-command-result', commandHandler);
+        window.removeEventListener('titan-accessibility-state', accessibilityHandler);
         window.removeEventListener('titan-gesture', gestureHandler);
       };
   });
@@ -385,6 +409,14 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
           <button className="button button-primary" type="submit">حفظ الاتصال</button>
           <p>لا تضع مفتاح Gemini هنا. المفتاح يبقى في الخادم فقط؛ هذا الحقل مخصص لرمز النشر المستقل.</p>
         </form>
+      )}
+
+      {role === 'owner' && isAndroidApp() && (
+        <div className="system-control-panel">
+          <div><ShieldCheck size={20} /><span><strong>TITAN Commander</strong><small>{accessibilityEnabled ? 'التحكم في التطبيقات متصل' : 'التحكم في التطبيقات يحتاج تفعيلًا يدويًا'}</small></span></div>
+          <button className="button button-secondary button-small" type="button" onClick={() => android?.openAccessibilitySettings?.()}>{accessibilityEnabled ? 'إدارة إمكانية الوصول' : 'تفعيل التحكم'}</button>
+          <p>يمكنك أيضًا إضافة زر TITAN إلى مركز الإشعارات. أوامر كلمات المرور ورموز التحقق محظورة، والكاميرا والنصوص الحساسة لا تُرسل إلى Gemini.</p>
+        </div>
       )}
 
       {(error || notice) && <div className={`smart-notice ${error ? 'is-error' : ''}`} role="status">{error || notice}</div>}
