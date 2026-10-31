@@ -14,6 +14,14 @@ export interface TitanAndroidBridge {
   executeCommand?: (command: string) => void;
   openAccessibilitySettings?: () => void;
   isAccessibilityEnabled?: () => boolean;
+  getVoices?: () => string;
+  setVoice?: (voiceId: string) => void;
+  setVoiceRate?: (rate: number) => void;
+  setVoicePitch?: (pitch: number) => void;
+  setVoiceVolume?: (volume: number) => void;
+  getMemorySnapshot?: () => string;
+  saveMemoryCommand?: (trigger: string, action: string) => boolean;
+  deleteMemoryItem?: (kind: string, key: string) => boolean;
 }
 
 interface RawAndroidBridge {
@@ -32,6 +40,14 @@ interface RawAndroidBridge {
   executeCommand?: (command: string, sessionToken: string) => void;
   openAccessibilitySettings?: (sessionToken: string) => void;
   isAccessibilityEnabled?: () => boolean;
+  getVoices?: (sessionToken: string) => string;
+  setVoice?: (voiceId: string, sessionToken: string) => void;
+  setVoiceRate?: (rate: number, sessionToken: string) => void;
+  setVoicePitch?: (pitch: number, sessionToken: string) => void;
+  setVoiceVolume?: (volume: number, sessionToken: string) => void;
+  getMemorySnapshot?: (sessionToken: string) => string;
+  saveMemoryCommand?: (trigger: string, action: string, sessionToken: string) => boolean;
+  deleteMemoryItem?: (kind: string, key: string, sessionToken: string) => boolean;
 }
 
 function rawBridge(): RawAndroidBridge | undefined {
@@ -64,6 +80,14 @@ export function androidBridge(): TitanAndroidBridge | undefined {
   if (native.executeCommand) bridge.executeCommand = (command) => native.executeCommand?.(command, sessionToken());
   if (native.openAccessibilitySettings) bridge.openAccessibilitySettings = () => native.openAccessibilitySettings?.(sessionToken());
   if (native.isAccessibilityEnabled) bridge.isAccessibilityEnabled = () => native.isAccessibilityEnabled?.() || false;
+  if (native.getVoices) bridge.getVoices = () => native.getVoices?.(sessionToken()) || '[]';
+  if (native.setVoice) bridge.setVoice = (voiceId) => native.setVoice?.(voiceId, sessionToken());
+  if (native.setVoiceRate) bridge.setVoiceRate = (rate) => native.setVoiceRate?.(rate, sessionToken());
+  if (native.setVoicePitch) bridge.setVoicePitch = (pitch) => native.setVoicePitch?.(pitch, sessionToken());
+  if (native.setVoiceVolume) bridge.setVoiceVolume = (volume) => native.setVoiceVolume?.(volume, sessionToken());
+  if (native.getMemorySnapshot) bridge.getMemorySnapshot = () => native.getMemorySnapshot?.(sessionToken()) || '{"commands":{},"history":[]}';
+  if (native.saveMemoryCommand) bridge.saveMemoryCommand = (trigger, action) => native.saveMemoryCommand?.(trigger, action, sessionToken()) || false;
+  if (native.deleteMemoryItem) bridge.deleteMemoryItem = (kind, key) => native.deleteMemoryItem?.(kind, key, sessionToken()) || false;
   return bridge;
 }
 
@@ -102,8 +126,16 @@ export function speak(text: string): void {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ar-EG';
-    utterance.rate = 0.95;
+    const selected = localStorage.getItem('titan.stark.voice') || '';
+    const voice = window.speechSynthesis.getVoices().find((item) => item.voiceURI === selected || item.name === selected);
+    if (voice) utterance.voice = voice;
+    utterance.lang = voice?.lang || 'ar-EG';
+    const rate = Number(localStorage.getItem('titan.stark.rate') || 0.95);
+    const pitch = Number(localStorage.getItem('titan.stark.pitch') || 1);
+    const volume = Number(localStorage.getItem('titan.stark.volume') || 1);
+    utterance.rate = Number.isFinite(rate) ? Math.min(1.5, Math.max(0.5, rate)) : 0.95;
+    utterance.pitch = Number.isFinite(pitch) ? Math.min(1.5, Math.max(0.5, pitch)) : 1;
+    utterance.volume = Number.isFinite(volume) ? Math.min(1, Math.max(0, volume)) : 1;
     window.speechSynthesis.speak(utterance);
   }
 }
