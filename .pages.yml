@@ -35,7 +35,7 @@ content:
           - name: employeeCount
             label: عدد الموظفين المعروض
             type: string
-            description: مثال 100+
+            description: الرقم الفعلي الحالي؛ يُستخدم أيضًا في SEO وبيانات المنظمة.
           - name: roles
             label: المسميات الوظيفية
             type: string
@@ -82,8 +82,20 @@ content:
             type: string
             required: true
           - name: status
-            label: حالة المشروع
+            label: نوع المشروع أو وصفه المختصر
             type: string
+          - name: stage
+            label: مرحلة المشروع
+            type: select
+            required: true
+            options:
+              values:
+                - name: published
+                  label: منشور
+                - name: prototype
+                  label: نموذج تجريبي
+                - name: development
+                  label: قيد التطوير
           - name: developer
             label: المطور أو الفريق
             type: string

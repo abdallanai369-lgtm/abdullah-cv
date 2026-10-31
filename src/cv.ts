@@ -24,11 +24,14 @@ export interface SkillCategory {
   items: string[];
 }
 
+export type ProjectStage = 'published' | 'prototype' | 'development';
+
 export interface Project {
   id?: string;
   title: string;
   description: string;
   status: string;
+  stage?: ProjectStage;
   developer?: string;
   technologies: string[];
   features: string[];

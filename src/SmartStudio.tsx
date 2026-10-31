@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import JSZip from 'jszip';
 import {
   Bot,
   Camera,
@@ -25,6 +24,7 @@ import {
 } from 'lucide-react';
 import { androidBridge, isAndroidApp, saveBlob, speak } from './androidBridge';
 import { generateSite } from './WebsiteGenerator';
+import { StarkCommandCenter } from './StarkCommandCenter';
 
 type Role = 'client' | 'owner';
 type BusyAction = 'generate' | 'edit' | 'chat' | 'publish' | null;
@@ -275,6 +275,7 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
 
   async function downloadZip() {
     if (!site) return;
+    const { default: JSZip } = await import('jszip');
     const zip = new JSZip();
     zip.file('index.html', site.html);
     zip.file('README.txt', `${site.title}\n\nافتح index.html في المتصفح، أو ارفع الملف إلى أي استضافة ثابتة.\nتم الإنشاء داخل TITAN Digital.`);
@@ -381,9 +382,9 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
       <div className="smart-studio-heading">
         <div className="ai-orb" aria-hidden="true"><Bot size={30} /></div>
         <div>
-          <span className="eyebrow"><Sparkles size={15} /> TITAN AI · Gemini</span>
+          <span className="eyebrow"><Sparkles size={15} /> TITAN STARK AI · COMMAND CENTER</span>
           <h2 id="smart-studio-title">مساعدك الذي يبني الموقع، لا يكتفي بوصفه.</h2>
-          <p>إنشاء وتعديل ومعاينة وتنزيل ونشر، مع وضع مالك محمي ووضع عميل محدود.</p>
+          <p>أدوات محلية تعمل الآن، واتصالات خارجية اختيارية بحالتها الحقيقية، مع وضع مالك محمي ووضع عميل محدود.</p>
         </div>
         <div className="smart-mode-actions">
           {role === 'owner' ? (
@@ -404,12 +405,14 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
 
       {settingsOpen && role === 'owner' && (
         <form className="smart-settings" onSubmit={saveSettings}>
-          <label>عنوان خادم Gemini الوسيط<input dir="ltr" type="url" value={endpoint} onChange={(event) => setEndpoint(event.target.value)} placeholder="https://titan-digital-ai....workers.dev" /></label>
+          <label>عنوان الخادم الوسيط للنماذج<input dir="ltr" type="url" value={endpoint} onChange={(event) => setEndpoint(event.target.value)} placeholder="https://titan-digital-ai....workers.dev" /></label>
           <label>رمز النشر الخاص بالمالك<input dir="ltr" type="password" autoComplete="off" value={publishToken} onChange={(event) => setPublishToken(event.target.value)} placeholder="يُحفظ مشفرًا على الجهاز" /></label>
           <button className="button button-primary" type="submit">حفظ الاتصال</button>
           <p>لا تضع مفتاح Gemini هنا. المفتاح يبقى في الخادم فقط؛ هذا الحقل مخصص لرمز النشر المستقل.</p>
         </form>
       )}
+
+      {role === 'owner' && <StarkCommandCenter endpoint={endpoint} />}
 
       {role === 'owner' && isAndroidApp() && (
         <div className="system-control-panel">
@@ -423,13 +426,13 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
 
       <div className="smart-workspace">
         <div className="assistant-panel">
-          <div className="panel-title"><MessageCircle size={19} /><h3>المساعد</h3><span>{role === 'owner' ? 'أوامر مالك كاملة' : 'مساعدة وإنشاء أولي'}</span></div>
+          <div className="panel-title"><MessageCircle size={19} /><h3>المساعد</h3><span>{role === 'owner' ? 'أوامر المالك المصرح بها' : 'مساعدة وإنشاء أولي'}</span></div>
           <div className="assistant-messages" aria-live="polite">
             {messages.map((message, index) => <div className={`assistant-message ${message.role}`} key={`${message.role}-${index}`}>{message.content}</div>)}
             {busy === 'chat' && <div className="assistant-message assistant"><LoaderCircle className="spin" size={18} /> جاري التفكير…</div>}
           </div>
           <form className="assistant-input" onSubmit={(event) => { event.preventDefault(); void sendMessage(); }}>
-            <input value={messageInput} onChange={(event) => setMessageInput(event.target.value)} placeholder="اكتب أمرك أو سؤالك…" aria-label="رسالة المساعد" />
+            <input id="titan-command-input" value={messageInput} onChange={(event) => setMessageInput(event.target.value)} placeholder="اكتب أمرك أو سؤالك…" aria-label="رسالة المساعد" />
             {isAndroidApp() && <button className={`icon-button ${listening ? 'is-listening' : ''}`} type="button" onClick={startListening} aria-label="إدخال صوتي"><Mic size={19} /></button>}
             <button className="icon-button send-button" type="submit" aria-label="إرسال" disabled={Boolean(busy)}><Send size={18} /></button>
           </form>
@@ -437,7 +440,7 @@ export function SmartStudio({ whatsappNumber }: SmartStudioProps) {
         </div>
 
         <div className="ai-builder-panel">
-          <div className="panel-title"><WandSparkles size={19} /><h3>إنشاء موقع</h3><span>{endpoint ? 'Gemini متصل بالإعدادات' : 'محلي + جاهز للاتصال'}</span></div>
+          <div className="panel-title"><WandSparkles size={19} /><h3>إنشاء موقع</h3><span>{endpoint ? 'عنوان خادم مضبوط · يحتاج فحصًا' : 'محلي + جاهز للاتصال'}</span></div>
           <label className="sr-only" htmlFor="ai-site-description">وصف موقع العمل</label>
           <textarea id="ai-site-description" value={description} onChange={(event) => setDescription(event.target.value)} placeholder="مثال: عيادة أسنان في القاهرة، أريد موقعًا فاخرًا يعرض الخدمات والأطباء والحجز وواتساب…" rows={7} />
           <button className="button button-primary ai-generate-button" type="button" disabled={!description.trim() || Boolean(busy)} onClick={() => void generateWebsite()}>

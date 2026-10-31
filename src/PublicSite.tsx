@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { freshDefaultCV } from './cv';
-import type { CVData, Project, SkillCategory } from './cv';
+import type { CVData, Project, ProjectStage, SkillCategory } from './cv';
 import { WebsiteGenerator } from './WebsiteGenerator';
 import { SmartStudio } from './SmartStudio';
 
@@ -40,6 +40,7 @@ const skillIcons: Record<SkillCategory['icon'], LucideIcon> = {
 };
 
 const navItems = [
+  { href: '#titan-core', label: 'TITAN CORE' },
   { href: '#generator', label: 'أنشئ موقعك' },
   { href: '#about', label: 'من نحن' },
   { href: '#skills', label: 'التخصصات' },
@@ -47,6 +48,23 @@ const navItems = [
   { href: '#technologies', label: 'التقنيات' },
   { href: '#contact', label: 'تواصل' },
 ];
+
+const stageLabels: Record<ProjectStage, string> = {
+  published: 'منشور',
+  prototype: 'نموذج تجريبي',
+  development: 'قيد التطوير',
+};
+
+const coreStages = [
+  ['PERCEPTION', 'نص وصوت وكاميرا داخل تطبيق Android.'],
+  ['REASONING', 'يحتاج نموذجًا متصلًا؛ لا يعمل كذكاء سحابي دون إعداد.'],
+  ['PLANNING', 'تخطيط النموذج المركب غير مفعّل في النسخة الأولى.'],
+  ['EXECUTION', 'مولد محلي، تصدير، وأوامر نظام للمالك.'],
+  ['TESTING', 'بناء وفحوص واجهة وAndroid موثقة في تقرير المراجعة.'],
+  ['LEARNING', 'اختصارات أوامر يعلّمها المالك، وليس تدريب نموذج.'],
+  ['MEMORY', 'ذاكرة أوامر محلية قابلة للمراجعة والحذف والتصدير.'],
+  ['SELF-IMPROVEMENT', 'تسجيل الأخطاء واقتراح التحسين دون تعديل ذاتي للكود.'],
+] as const;
 
 function safeExternalUrl(value?: string): string {
   if (!value?.trim()) return '';
@@ -80,6 +98,7 @@ function SectionHeading({ number, eyebrow, title, description }: {
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const liveUrl = safeExternalUrl(project.link);
   const githubUrl = safeExternalUrl(project.github);
+  const requiresAccount = liveUrl ? /(?:^|\.)ai\.studio$|aistudio\.google\.com/i.test(new URL(liveUrl).hostname) : false;
   const visibleFeatures = project.features.filter(Boolean).slice(0, 4);
   const extraFeatures = project.features.filter(Boolean).slice(4);
 
@@ -87,7 +106,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     <article className="project-card reveal">
       <div className="project-topline">
         <span className="project-number" dir="ltr">{String(index + 1).padStart(2, '0')}</span>
-        {project.status && <span className="project-status">{project.status}</span>}
+        <span className="project-labels">
+          {project.stage && <span className={`project-stage stage-${project.stage}`}>{stageLabels[project.stage]}</span>}
+          {project.status && <span className="project-status">{project.status}</span>}
+        </span>
       </div>
       <div className="project-icon"><FolderGit2 size={23} /></div>
       <h3 dir="auto">{project.title}</h3>
@@ -122,8 +144,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       {(liveUrl || githubUrl) && (
         <div className="project-links">
           {liveUrl && (
-            <a href={liveUrl} target="_blank" rel="noreferrer">
-              عرض المشروع <ExternalLink size={16} />
+            <a href={liveUrl} target="_blank" rel="noreferrer" title={requiresAccount ? 'قد يتطلب الرابط تسجيل الدخول إلى Google' : undefined}>
+              {requiresAccount ? 'AI Studio · قد يتطلب تسجيلًا' : 'عرض المشروع'} <ExternalLink size={16} />
             </a>
           )}
           {githubUrl && (
@@ -142,10 +164,11 @@ export function PublicSite() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [showTop, setShowTop] = useState(false);
+  const [projectFilter, setProjectFilter] = useState<'all' | ProjectStage>('all');
 
   useEffect(() => {
-    document.title = `${cv.profile.name} | ${cv.profile.roles[0] || 'مطور برمجيات'}`;
-  }, [cv.profile.name, cv.profile.roles]);
+    document.title = 'TITAN STARK AI | مساعدك الشخصي للهندسة والأتمتة';
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -185,22 +208,24 @@ export function PublicSite() {
     { value: cv.skills.length, label: 'مجالات تخصص' },
     { value: cv.profile.employeeCount, label: 'موظف وخبير' },
   ], [cv.projects.length, cv.skills.length, cv.profile.employeeCount]);
+  const visibleProjects = projectFilter === 'all'
+    ? cv.projects.map((project, index) => ({ project, index }))
+    : cv.projects.map((project, index) => ({ project, index })).filter(({ project }) => project.stage === projectFilter);
 
   const githubUrl = safeExternalUrl(cv.profile.github);
   const githubHandle = githubUrl ? new URL(githubUrl).pathname.split('/').filter(Boolean)[0] : '';
   const photoUrl = safeExternalUrl(cv.profile.photoUrl);
   const whatsappNumber = cv.profile.whatsapp.replace(/\D/g, '');
   const whatsappUrl = whatsappNumber ? `https://wa.me/${whatsappNumber}` : '';
-  const words = cv.profile.headline.trim().split(/\s+/);
-  const highlightedWords = words.splice(-2).join(' ');
-  const regularWords = words.join(' ');
-
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: cv.profile.name,
+    url: 'https://abdallanai369-lgtm.github.io/abdullah-cv/',
     founder: { '@type': 'Person', name: cv.profile.owner, jobTitle: 'Founder & CEO' },
-    numberOfEmployees: { '@type': 'QuantitativeValue', minValue: Number.parseInt(cv.profile.employeeCount, 10) || 0 },
+    numberOfEmployees: cv.profile.employeeCount.includes('+')
+      ? { '@type': 'QuantitativeValue', minValue: Number.parseInt(cv.profile.employeeCount, 10) || 0 }
+      : { '@type': 'QuantitativeValue', value: Number.parseInt(cv.profile.employeeCount, 10) || 0 },
     email: `mailto:${cv.profile.email}`,
     telephone: cv.profile.phone,
     address: { '@type': 'PostalAddress', addressCountry: 'EG', addressLocality: cv.profile.location },
@@ -218,8 +243,8 @@ export function PublicSite() {
           <a className="brand" href="#home" onClick={() => setMenuOpen(false)} aria-label="العودة إلى البداية">
             <span className="brand-mark"><Code2 size={23} /></span>
             <span className="brand-copy">
-              <strong>{cv.profile.name}</strong>
-              <small dir="ltr">DIGITAL SOLUTIONS</small>
+              <strong>TITAN STARK AI</strong>
+              <small dir="ltr">PERSONAL AI SYSTEM</small>
             </span>
           </a>
 
@@ -254,18 +279,18 @@ export function PublicSite() {
           <div className="hero-glow hero-glow-two" />
           <div className="container hero-grid">
             <div className="hero-copy reveal">
-              <div className="availability"><span /> {cv.profile.specialty}</div>
-              <p className="hero-intro">مرحبًا بك في {cv.profile.name}</p>
+              <div className="availability"><span /> مساعد شخصي · هندسة برمجيات · أتمتة</div>
+              <p className="hero-intro">TITAN Digital تقدم مساعدك الخاص</p>
               <h1>
-                {regularWords && <span>{regularWords} </span>}
-                <span className="text-gradient">{highlightedWords}</span>
+                <span>أوامرك تتحول إلى </span>
+                <span className="text-gradient">عمل قابل للمراجعة.</span>
               </h1>
-              <p className="hero-description">{cv.profile.summary[0]}</p>
+              <p className="hero-description">أنشئ مواقع كاملة وعاينها وصدّرها، واستخدم الصوت وأوامر Android بصلاحيات المالك. الاتصال بالنماذج السحابية اختياري، وأي خدمة غير مضبوطة تظهر بحالتها الحقيقية.</p>
               <div className="role-list">
                 {cv.profile.roles.filter(Boolean).map((role) => <span key={role} dir="auto">{role}</span>)}
               </div>
               <div className="hero-actions">
-                <a className="button button-primary" href="#generator">أنشئ موقعك الآن <ArrowLeft size={19} /></a>
+                <a className="button button-primary" href="#smart-studio">افتح مركز القيادة <ArrowLeft size={19} /></a>
                 {whatsappUrl && (
                   <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">
                     <MessageCircle size={19} /> تواصل عبر واتساب
@@ -310,7 +335,7 @@ export function PublicSite() {
               </div>
               <div className="visual-caption">
                 <Zap size={17} />
-                <span>حلول عملية. كود قابل للتطوير. تجربة أبسط.</span>
+                <span>أدوات حقيقية. صلاحيات واضحة. نتائج قابلة للاختبار.</span>
               </div>
             </div>
           </div>
@@ -336,6 +361,30 @@ export function PublicSite() {
             ))}
           </div>
         </div>
+
+        <section className="section stark-core-section" id="titan-core">
+          <div className="container">
+            <SectionHeading
+              number="01"
+              eyebrow="TITAN CORE · OWNER CONTROLLED"
+              title="منظومة واضحة، لا وكلاء وهميون."
+              description="هذه خريطة القدرات وحالتها في النسخة الأولى. الأدوات المحلية تعمل مباشرة، والقدرات التي تحتاج نموذجًا أو خادمًا لا نعرضها كخدمة جاهزة."
+            />
+            <div className="core-stage-grid">
+              {coreStages.map(([name, description], index) => (
+                <article className="core-stage reveal" key={name}>
+                  <span dir="ltr">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 dir="ltr">{name}</h3>
+                  <p>{description}</p>
+                </article>
+              ))}
+            </div>
+            <div className="core-command-strip reveal">
+              <div><BrainCircuit size={25} /><span><strong>أنت صاحب القرار</strong><small>النشر والحذف والإجراءات الحساسة تحتاج موافقة صريحة.</small></span></div>
+              <a className="button button-secondary" href="#smart-studio">استعرض الأدوات الفعلية <ArrowLeft size={18} /></a>
+            </div>
+          </div>
+        </section>
 
         <WebsiteGenerator whatsappNumber={whatsappNumber} />
         <SmartStudio whatsappNumber={whatsappNumber} />
@@ -425,8 +474,16 @@ export function PublicSite() {
               title="نماذج تتحول فيها الأفكار إلى تجربة حقيقية."
               description="مجموعة من المشاريع والنماذج الأولية في الويب والأنظمة والذكاء الاصطناعي والأتمتة."
             />
-            <div className="projects-grid">
-              {cv.projects.map((project, index) => <ProjectCard key={project.id ?? `project-${index}`} project={project} index={index} />)}
+            <div className="project-filters reveal" role="group" aria-label="تصفية المشاريع حسب المرحلة">
+              <button type="button" aria-pressed={projectFilter === 'all'} className={projectFilter === 'all' ? 'active' : ''} onClick={() => setProjectFilter('all')}>الكل <span>{cv.projects.length}</span></button>
+              {(Object.keys(stageLabels) as ProjectStage[]).map((stage) => {
+                const count = cv.projects.filter((project) => project.stage === stage).length;
+                if (!count) return null;
+                return <button type="button" key={stage} aria-pressed={projectFilter === stage} className={projectFilter === stage ? 'active' : ''} onClick={() => setProjectFilter(stage)}>{stageLabels[stage]} <span>{count}</span></button>;
+              })}
+            </div>
+            <div className="projects-grid" aria-live="polite">
+              {visibleProjects.map(({ project, index }) => <ProjectCard key={project.id ?? `project-${index}`} project={project} index={index} />)}
             </div>
             {githubUrl && (
               <div className="projects-footer reveal">

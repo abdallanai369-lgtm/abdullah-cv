@@ -10,6 +10,7 @@ import '@fontsource/space-grotesk/600.css';
 import { PublicSite } from './PublicSite';
 import { AdminApp } from './AdminApp';
 import './styles.css';
+import './stark.css';
 
 const rootElement = document.getElementById('root')!;
 const isAdmin = rootElement.dataset.app === 'admin';

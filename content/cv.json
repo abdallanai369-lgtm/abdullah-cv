@@ -5,7 +5,7 @@
     "headline": "نصنع حلولًا رقمية تبدأ من فكرتك.",
     "specialty": "شركة تطوير برمجيات وحلول رقمية وذكاء اصطناعي",
     "owner": "Abdullah Mohammed Sayed",
-    "employeeCount": "20+",
+    "employeeCount": "3",
     "roles": [
       "Web Development",
       "AI Solutions",
@@ -13,7 +13,7 @@
       "Digital Products"
     ],
     "summary": [
-      "TITAN Digital هي شركة تطوير برمجيات وحلول رقمية تضم أكثر من 20 موظف، وتعمل تحت إدارة مالكها المهندس Abdullah Mohammed Sayed.",
+      "TITAN Digital هي شركة تطوير برمجيات وحلول رقمية تضم ثلاثة موظفين، وتعمل تحت إدارة مالكها المهندس Abdullah Mohammed Sayed.",
       "نقدم خدمات تصميم وتطوير المواقع والتطبيقات وأنظمة إدارة الأعمال وحلول الذكاء الاصطناعي والأتمتة، ونحوّل أفكار العملاء إلى منتجات رقمية عملية وسهلة الاستخدام.",
       "بقيادة المهندس Abdullah Mohammed Sayed، نجمع بين الخبرة التقنية والتصميم الاحترافي لبناء حلول قابلة للتطوير تساعد عملاءنا على النمو وتقليل التكاليف."
     ],
@@ -28,6 +28,7 @@
       "id": "alhuda-alnoor-clinics",
       "title": "عيادات الهدى والنور",
       "status": "موقع عيادات طبية",
+      "stage": "published",
       "developer": "Abdallah Mamd",
       "description": "تصميم وتطوير موقع إلكتروني للعيادات الطبية، يهدف إلى تسهيل وصول المرضى إلى الخدمات والتخصصات الطبية وتنظيم طلبات الحجز.",
       "technologies": [
@@ -52,6 +53,7 @@
       "id": "al-hayah-care",
       "title": "مركز الحياة كير الطبي",
       "status": "موقع مركز طبي",
+      "stage": "published",
       "developer": "Abdallah Mamd",
       "description": "تصميم وتطوير موقع إلكتروني لمركز طبي، يوفر واجهة رقمية للتعريف بالمركز وخدماته ويساعد المرضى على طلب حجز الكشف.",
       "technologies": [
@@ -75,6 +77,7 @@
       "id": "alfatem-specialty-clinics",
       "title": "عيادات الفاطم التخصصية",
       "status": "موقع عيادات تخصصية",
+      "stage": "published",
       "developer": "Abdallah Mamd",
       "description": "تصميم وتطوير موقع إلكتروني للعيادات التخصصية، بهدف تقديم الخدمات الطبية بصورة منظمة وتسهيل تجربة المرضى في التعرف على الأطباء والتخصصات وطلب المواعيد.",
       "technologies": [
@@ -99,6 +102,7 @@
       "id": "zeno-ai-studio",
       "title": "Zeno AI Studio",
       "status": "نموذج أولي قيد التطوير",
+      "stage": "development",
       "description": "منصة لتطوير البرمجيات وإدارة المشاريع، مبنية باستخدام Python وFlask وتضم محرر أكواد ومساعد ذكاء اصطناعي.",
       "technologies": [
         "Python",
@@ -121,6 +125,7 @@
       "id": "zeno-x-studio",
       "title": "Zeno X Studio",
       "status": "Prototype تجريبي",
+      "stage": "prototype",
       "description": "منصة محلية لتوليد نماذج المشاريع البرمجية من الأوصاف النصية، مع إمكانية المعاينة والتصدير.",
       "technologies": [
         "Python",
@@ -139,6 +144,7 @@
       "id": "amwaj-restaurant",
       "title": "Amwaj Restaurant",
       "status": "مشروع واجهة رقمية",
+      "stage": "prototype",
       "description": "واجهة رقمية حديثة لمطعم، تركز على تجربة المستخدم وتنظيم المحتوى والاستعداد للنشر.",
       "technologies": [
         "React",
@@ -158,6 +164,7 @@
       "id": "motor-workshop",
       "title": "Motor Workshop Management System",
       "status": "نظام تجريبي",
+      "stage": "prototype",
       "description": "نظام تجريبي متكامل لإدارة ورش صيانة ولف المواتير، من أوامر الشغل حتى الحسابات والمخزون.",
       "technologies": [
         "Python",
@@ -180,6 +187,7 @@
       "id": "ai-sales-automation",
       "title": "AI Sales & Business Automation",
       "status": "تطوير وتجارب ونماذج أولية",
+      "stage": "development",
       "description": "أفكار وأنظمة مساعدة للشركات تستخدم الذكاء الاصطناعي والأتمتة لتحسين التسويق والمبيعات وتنظيم العمليات.",
       "technologies": [
         "AI",
@@ -199,6 +207,7 @@
       "id": "anime-ai",
       "title": "ANIME AI",
       "status": "مشروع قيد التطوير",
+      "stage": "development",
       "description": "أداة ذكاء اصطناعي لإنشاء أفكار ومحتوى YouTube Shorts، من الفكرة والسيناريو حتى العنوان والهاشتاجات.",
       "technologies": [
         "Python",
@@ -286,7 +295,7 @@
     "CodeMirror"
   ],
   "workEnvironment": [
-    "فريق متكامل يضم أكثر من 100 موظف في مختلف التخصصات التقنية",
+    "فريق متخصص يضم ثلاثة موظفين في التخصصات التقنية المطلوبة للمشروعات",
     "إدارة المشاريع تحت قيادة المهندس Abdullah Mohammed Sayed",
     "تطوير حلول مخصصة للمواقع والتطبيقات وأنظمة إدارة الأعمال",
     "تصميم تجارب استخدام احترافية وواجهات متجاوبة مع جميع الأجهزة",
